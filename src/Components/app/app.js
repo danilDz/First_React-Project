@@ -10,6 +10,7 @@ function App() {
 
     const data = [
         {name: "John C.", salary: 800, increase: true},
+        {name: "John C.", salary: 800, increase: true},
         {name: "Daniel H.", salary: 3000, increase: false},
         {name: "Skitr O.", salary: 5000, increase: false}
     ];
