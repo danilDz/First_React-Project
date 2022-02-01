@@ -13,9 +13,9 @@ class App extends Component{
         super(props)
         this.state = {
             data: [
-                {name: "John C.", salary: 800, id: 1},
-                {name: "Daniel H.", salary: 3000, id: 2},
-                {name: "Skitr O.", salary: 5000, id: 3}
+                {name: "John C.", salary: 800, increase: false, promotion: true, id: 1},
+                {name: "Daniel H.", salary: 3000, increase: true, promotion: false, id: 2},
+                {name: "Skitr O.", salary: 5000, increase: false, promotion: false, id: 3}
             ]
         }
         this.currentId = 4
@@ -23,18 +23,6 @@ class App extends Component{
 
     deleteItem = (id) => {
         this.setState(({data}) => {
-
-            // First way
-
-            // const index = data.findIndex(elem => elem.id == id)
-            
-            // const before = data.slice(0, index)
-            // const after = data.slice(index+1)
-            // const newArr = [...before, ...after]
-
-
-            // Second way
-
             const newArr = data.filter(item => item.id !== id)
 
             return{
@@ -48,6 +36,7 @@ class App extends Component{
             name,
             salary,
             increase: false,
+            promotion: false,
             id: this.currentId++
         }
 
@@ -60,10 +49,63 @@ class App extends Component{
         })
     }
 
+    // onToggleIncrease = (id) => {
+    //     this.setState(({data}) => {
+    //         const index = data.findIndex(item => item.id == id)
+
+    //         const old = data[index]
+    //         const newItem = {...old, increase: !old.increase}
+
+    //         const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)]
+
+    //         return {
+    //             data: newArr
+    //         }
+
+    //     })
+    // }
+
+    // onToggleRise = (id) => {
+    //     this.setState(({data}) => ({
+    //         data: data.map(item => {
+    //             if (item.id == id) {
+    //                 return {...item, promotion: !item.promotion}
+    //             }
+    //             return item
+    //         })
+    //     }))
+    // }
+
+    onToggleProp = (id, prop) => {
+        this.setState(({data}) => ({
+            data: data.map(item => {
+                if (item.id == id) {
+                    return {...item, [prop]: !item[prop]}
+                }
+                return item
+            })
+        }))
+    }
+
+    allEmpl = () => {
+        return this.state.data.length
+    }
+
+    awarderedEmpl = () => {
+        let count = 0
+        this.state.data.forEach(item => {
+            if (item.increase == true) {
+                count++
+            }
+        })
+        return count
+    }
+
     render(){
         return (
             <div className="app">
-                <AppInfo/>
+                <AppInfo allEmpl={this.allEmpl()}
+                    awarderedEmpl={this.awarderedEmpl()} />
     
                 <div className="search-panel">
                     <SearchPanel/>
@@ -72,7 +114,8 @@ class App extends Component{
     
                 <EmployeesList 
                     data={this.state.data}
-                    onDelete = {this.deleteItem}/>
+                    onDelete = {this.deleteItem}
+                    onToggleProp={this.onToggleProp}/>
                 <EmployeesAddForm onSubmit={this.onSubmit}/>
             </div>
         )
