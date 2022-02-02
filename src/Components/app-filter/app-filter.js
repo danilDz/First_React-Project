@@ -1,25 +1,85 @@
+import { Component } from 'react';
+
 import './app-filter.css';
 
-const AppFilter = () => {
-    return (
-        <div className="btn-group">
-            <button 
-                className="btn btn-light"
-                type="button">
-                    All employees
-            </button>
-            <button 
-                className="btn btn-outline-light"
-                type="button">
-                    For promotion
-            </button>
-            <button 
-                className="btn btn-outline-light"
-                type="button">
-                    Salary more than 1000$
-            </button>
-        </div>
-    )
+class AppFilter extends Component {
+    constructor(props) {
+        super(props)
+    }
+
+    onFilter = (e) => {
+        this.props.onUpdateFilter(e.target.name)
+        const classNames = 'btn btn-outline-light'
+        const buttons = document.querySelectorAll('.btn-group .btn')
+        buttons.forEach(item => {
+            item.classList.replace('btn-light', 'btn-outline-light')
+            if (item.name == e.target.name) {
+                item.classList.replace('btn-outline-light', 'btn-light')
+            }
+        })
+    }
+    
+    render() {
+        const dataButtons = [
+            {name: 'all', label: 'All employees'},
+            {name: 'promotion', label: 'For promotion'},
+            {name: 'salary', label: 'Salary more than 1000$'}
+        ]
+
+        const buttons = dataButtons.map(({name, label}, index) => {
+            if (index == 0) {
+                return (
+                    <button 
+                        className="btn btn-light"
+                        type="button"
+                        key={name}
+                        name={name}
+                        onClick={this.onFilter}>
+                            {label}
+                    </button>
+                )
+            } else {
+                return (
+                    <button 
+                        className="btn btn-outline-light"
+                        type="button"
+                        key={name}
+                        name={name}
+                        onClick={this.onFilter}>
+                            {label}
+                    </button>
+                )
+            }
+            
+        })
+
+        return (
+            <div className="btn-group">
+                {buttons}
+                {/* <button 
+                    className="btn btn-light"
+                    type="button"
+                    name='all'
+                    onClick={this.onFilter}>
+                        All employees
+                </button>
+                <button 
+                    className="btn btn-outline-light"
+                    type="button"
+                    name='promotion'
+                    onClick={this.onFilter}>
+                        For promotion
+                </button>
+                <button 
+                    className="btn btn-outline-light"
+                    type="button"
+                    name='salary'
+                    onClick={this.onFilter}>
+                        Salary more than 1000$
+                </button> */}
+            </div>
+        )
+    }
 }
 
 export default AppFilter;
