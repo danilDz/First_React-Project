@@ -22,8 +22,7 @@ class EmployeesListItem extends Component {
             <li className={classNames}>
                 <span className="list-group-item-label"
                 onClick={onToggleProp}
-                data-toggle='promotion'
-                style={{fontSize: 40, color: 'red', transition: 'all', WebkitTransition: 'all', msTransition: 'all'}}>{name}</span>
+                data-toggle='promotion'>{name}</span>
                 <input type="text" 
                         className="list-group-item-input" 
                         defaultValue={salary + '$'}
