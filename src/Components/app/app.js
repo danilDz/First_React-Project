@@ -18,7 +18,8 @@ class App extends Component{
                 {name: "Skitr O.", salary: 5000, increase: false, promotion: false, id: 3}
             ],
             term: '',
-            filter: ''
+            filter: '',
+            sal: ''
         }
         this.currentId = 4
     }
@@ -50,33 +51,6 @@ class App extends Component{
             }
         })
     }
-
-    // onToggleIncrease = (id) => {
-    //     this.setState(({data}) => {
-    //         const index = data.findIndex(item => item.id == id)
-
-    //         const old = data[index]
-    //         const newItem = {...old, increase: !old.increase}
-
-    //         const newArr = [...data.slice(0, index), newItem, ...data.slice(index+1)]
-
-    //         return {
-    //             data: newArr
-    //         }
-
-    //     })
-    // }
-
-    // onToggleRise = (id) => {
-    //     this.setState(({data}) => ({
-    //         data: data.map(item => {
-    //             if (item.id == id) {
-    //                 return {...item, promotion: !item.promotion}
-    //             }
-    //             return item
-    //         })
-    //     }))
-    // }
 
     onToggleProp = (id, prop) => {
         this.setState(({data}) => ({
@@ -137,11 +111,36 @@ class App extends Component{
                 }
             })
         }
+        if (filter == 'award') {
+            return items.filter(item => {
+                if (item.increase) {
+                    return item
+                }
+            })
+        }
     }
 
     onUpdateFilter = (filter) => {
         this.setState({
             filter: filter
+        })
+    }
+
+    onChangeSalary = (id, salary) => {
+        this.setState(({data}) => {
+            const newArr = data.map(item => {
+                if (item.id == id) {
+                    salary = salary.slice(0, salary.length-1)
+                    return {...item, salary: Number(salary)}
+                }
+                else {
+                    return item
+                }
+            })
+
+            return {
+                data: newArr
+            }
         })
     }
 
@@ -164,7 +163,8 @@ class App extends Component{
                 <EmployeesList 
                     data={visibleData}
                     onDelete = {this.deleteItem}
-                    onToggleProp={this.onToggleProp}/>
+                    onToggleProp={this.onToggleProp}
+                    onChangeSalary={this.onChangeSalary} />
                 <EmployeesAddForm onSubmit={this.onSubmit}/>
             </div>
         )

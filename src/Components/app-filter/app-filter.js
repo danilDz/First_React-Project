@@ -23,7 +23,8 @@ class AppFilter extends Component {
         const dataButtons = [
             {name: 'all', label: 'All employees'},
             {name: 'promotion', label: 'For promotion'},
-            {name: 'salary', label: 'Salary more than 1000$'}
+            {name: 'salary', label: 'Salary more than 1000$'},
+            {name: 'award', label: 'For award'}
         ]
 
         const buttons = dataButtons.map(({name, label}, index) => {
@@ -56,27 +57,6 @@ class AppFilter extends Component {
         return (
             <div className="btn-group">
                 {buttons}
-                {/* <button 
-                    className="btn btn-light"
-                    type="button"
-                    name='all'
-                    onClick={this.onFilter}>
-                        All employees
-                </button>
-                <button 
-                    className="btn btn-outline-light"
-                    type="button"
-                    name='promotion'
-                    onClick={this.onFilter}>
-                        For promotion
-                </button>
-                <button 
-                    className="btn btn-outline-light"
-                    type="button"
-                    name='salary'
-                    onClick={this.onFilter}>
-                        Salary more than 1000$
-                </button> */}
             </div>
         )
     }
