@@ -21,13 +21,14 @@ class AppFilter extends Component {
     
     render() {
         const dataButtons = [
-            {name: 'all', label: 'All employees'},
-            {name: 'promotion', label: 'For promotion'},
-            {name: 'salary', label: 'Salary more than 1000$'},
-            {name: 'award', label: 'For award'}
+            {name: 'all', label: 'All employees', colored: false},
+            {name: 'promotion', label: 'For promotion', colored: false},
+            {name: 'salary', label: 'Salary more than 1000$', colored: true},
+            {name: 'award', label: 'For award', colored: false}
         ]
 
-        const buttons = dataButtons.map(({name, label}, index) => {
+        const buttons = dataButtons.map(({name, label, colored}, index) => {
+            const style = colored ? {color: 'red'} : null
             if (index == 0) {
                 return (
                     <button 
@@ -35,6 +36,7 @@ class AppFilter extends Component {
                         type="button"
                         key={name}
                         name={name}
+                        style={style}
                         onClick={this.onFilter}>
                             {label}
                     </button>
@@ -46,6 +48,7 @@ class AppFilter extends Component {
                         type="button"
                         key={name}
                         name={name}
+                        style={style}
                         onClick={this.onFilter}>
                             {label}
                     </button>
